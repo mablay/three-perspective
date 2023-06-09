@@ -6,9 +6,10 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { useEventListener, useResizeObserver } from '@vueuse/core'
+import { onMounted, onUnmounted, ref } from 'vue'
 import { initPerspective } from './perspective'
+
+const container = ref<HTMLDivElement>()
 
 interface PerspectiveProps {
   scene: THREE.Scene
@@ -22,29 +23,34 @@ const props = withDefaults(defineProps<PerspectiveProps>(), {
   antialias: true,
   powerPreference: 'default'
 })
-const container = ref<HTMLDivElement>()
-// const canvas = ref<HTMLCanvasElement>()
 
 const { orbit, render, camera, renderer } = initPerspective(props)
-
 defineExpose({ orbit, render, camera, renderer })
 
-useEventListener(orbit, 'change', render)
-
-useResizeObserver(container, (entries) => {
+let resizeObserver: ResizeObserver
+function resize (entries: ResizeObserverEntry[], observer: ResizeObserver) {
   const entry = entries[0]
   const { width, height } = entry.contentRect
   camera.aspect = width / height
   camera.updateProjectionMatrix()
   renderer.setSize(width, height - 0)
   render()
-})
-
+}
 
 onMounted(() => {
   if (!container.value) throw new Error('Missing HTMLDivElement!')
   container.value.appendChild(renderer.domElement)
   render()
+
+  // these listeners must be cleaned up on unmount
+  orbit.addEventListener('change', render)
+  resizeObserver = new ResizeObserver(resize)
+  resizeObserver.observe(container.value)
+})
+
+onUnmounted(() => {
+  orbit.removeEventListener('change', render)
+  resizeObserver?.disconnect()
 })
 
 </script>
