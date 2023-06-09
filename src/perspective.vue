@@ -1,6 +1,7 @@
 <template>
-  <div ref="container" class="three-perspective-container">
-    <canvas ref="canvas"></canvas>
+  <div
+    ref="container"
+    class="three-perspective-container">
   </div>
 </template>
 
@@ -22,28 +23,29 @@ const props = withDefaults(defineProps<PerspectiveProps>(), {
   powerPreference: 'default'
 })
 const container = ref<HTMLDivElement>()
-const canvas = ref<HTMLCanvasElement>()
+// const canvas = ref<HTMLCanvasElement>()
+
+const { orbit, render, camera, renderer } = initPerspective(props)
+
+defineExpose({ orbit, render, camera, renderer })
+
+useEventListener(orbit, 'change', render)
+
+useResizeObserver(container, (entries) => {
+  const entry = entries[0]
+  const { width, height } = entry.contentRect
+  camera.aspect = width / height
+  camera.updateProjectionMatrix()
+  renderer.setSize(width, height - 0)
+  render()
+})
+
 
 onMounted(() => {
-    if (!container.value) throw new Error('Missing HTMLDivElement!')
-    if (!canvas.value) throw new Error('Missing HTMLCanvasElement!')
-
-    const { orbit, render, camera, renderer } = initPerspective(canvas.value, props)
-
-    useEventListener(orbit, 'change', render)
-
-    useResizeObserver(container, (entries) => {
-      if (!canvas.value) throw new Error('Missing HTMLCanvasElement!')
-      const entry = entries[0]
-      const { width, height } = entry.contentRect
-      camera.aspect = width / height
-      camera.updateProjectionMatrix()
-      renderer.setSize(width, height - 0)
-      render()
-    })
-
-    render()
-  })
+  if (!container.value) throw new Error('Missing HTMLDivElement!')
+  container.value.appendChild(renderer.domElement)
+  render()
+})
 
 </script>
 
