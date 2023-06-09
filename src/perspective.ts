@@ -1,13 +1,13 @@
-import { useEventListener, useResizeObserver } from '@vueuse/core'
-import { Scene, WebGLRenderer } from 'three'
+import { WebGLRenderer } from 'three'
 import { createCamera } from './entities'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { type Ref, onMounted, toRaw } from 'vue'
 
 export interface PerspectiveProps {
   scene: THREE.Scene
   antialias?: boolean
+  /** default: 'highp' */
   precision?: 'highp' | 'mediump' | 'lowp'
+  /** default: 'default' */
   powerPreference?: 'high-performance' | 'low-power' | 'default'
 }
 
@@ -23,10 +23,7 @@ export function initPerspective (props: PerspectiveProps) {
   camera.position.set(-3, 2, -4)
 
   // RENDERER
-  const renderer = new WebGLRenderer({
-    antialias: true,
-    powerPreference: 'low-power' // 'high-performance'
-  })
+  const renderer = new WebGLRenderer(renderProps)
   renderer.setSize(width, height)
   const render = () => renderer.render(scene, camera)
 
