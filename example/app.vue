@@ -7,14 +7,19 @@ import Perspective from '../src/perspective.vue'
 import { entities } from '../index'
 import * as THREE from 'three'
 import { onMounted, ref } from 'vue'
+import '../src/fullscreen.css'
 
 const perspective = ref<InstanceType<typeof Perspective>>()
 const scene = new THREE.Scene()
-scene.add(entities.createHemisphereLight())
-scene.add(entities.createBox([3, 0, 0], [1, 2, 1], [1, 0, 0]))
+
+const light = new THREE.HemisphereLight('skyblue', 'brown')
+const box = entities.createBox([0, 0, 0], [1, 1, 0.2], [1, 0, 0])
+scene.add(box, light)
+
 onMounted(async () => {
-  // access renderer, controls, camera etc. via component ref
-  perspective.value?.render()
+  if (!perspective.value) throw new Error('Missing perspective!')
+  const { renderer, orbit, camera, render } = perspective.value
+  // here, you have access to the renderer if needed.
 })
 
 </script>

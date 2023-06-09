@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { KTXLoader } from 'three/examples/jsm/loaders/KTXLoader.js'
 
+export type R2 = [x: number, y: number]
 export type R3 = [x: number, y: number, z: number]
 
 export function exampleScene () {
@@ -20,6 +21,15 @@ export function createHemisphereLight (skyColor: THREE.ColorRepresentation = '#F
   return new THREE.HemisphereLight(skyColor, groundColor, 1)
 }
 
+export function createPlane (pos:R3 = [0, 0, 0], dim:R2 = [10, 10], rot:R3 = [Math.PI/2, 0, 0], color:THREE.ColorRepresentation = '#BBB') {
+  const geometry = new THREE.PlaneGeometry(...dim)
+  const material = new THREE.MeshStandardMaterial({ color, side: THREE.DoubleSide })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.rotation.set(...rot)
+  mesh.position.set(...pos)
+  return mesh
+}
+
 export function createBox (
   pos:R3 = [0, 0, 0],
   dim:R3 = [1, 1, 1],
@@ -34,20 +44,25 @@ export function createBox (
   return mesh
 }
 
-export function createImage (url: string) {
-  const geometry = new THREE.PlaneGeometry(1, 1)
+export function createImage (url: string, pos:R3 = [0, 0, 0], dim:R2 = [1, 1]) {
+  const geometry = new THREE.PlaneGeometry(...dim)
   const map = new THREE.TextureLoader().load(url)
-  const material = new THREE.MeshBasicMaterial({ map })
-  return new THREE.Mesh(geometry, material)
+  const material = new THREE.MeshBasicMaterial({
+    map,
+    side: THREE.DoubleSide
+  })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.position.set(...pos)
+  return mesh
 }
 
-export async function createKtxImage (url: string, cb?: (texture: THREE.CompressedTexture) => void) {
-  const loader = new KTXLoader()
-  // loader.setTranscoderPath('examples/jsm/libs/basis/')
-  // loader.detectSupport(renderer)
-  const map = await loader.load(url, cb ?? (() => {}))
-  const geometry = new THREE.PlaneGeometry(1, 1)
-  const material = new THREE.MeshBasicMaterial({ map, side: THREE.DoubleSide })
-  return new THREE.Mesh(geometry, material)
+// export async function createKtxImage (url: string, cb?: (texture: THREE.CompressedTexture) => void) {
+//   const loader = new KTXLoader()
+//   // loader.setTranscoderPath('examples/jsm/libs/basis/')
+//   // loader.detectSupport(renderer)
+//   const map = await loader.load(url, cb ?? (() => {}))
+//   const geometry = new THREE.PlaneGeometry(1, 1)
+//   const material = new THREE.MeshBasicMaterial({ map, side: THREE.DoubleSide })
+//   return new THREE.Mesh(geometry, material)
 
-}
+// }
