@@ -33,9 +33,9 @@ export function createImage (url: string) {
   return new THREE.Mesh(geometry, material)
 }
 
-export async function createKtxImage (url: string, cb: (texture: THREE.CompressedTexture) => void) {
+export async function createKtxImage (url: string, cb?: (texture: THREE.CompressedTexture) => void) {
   const loader = new KTXLoader()
-  const map = await loader.load(url, cb)
+  const map = await loader.load(url, cb ?? (() => {}))
   const geometry = new THREE.PlaneGeometry(1, 1)
   const material = new THREE.MeshBasicMaterial({ map })
   return new THREE.Mesh(geometry, material)

@@ -2,9 +2,19 @@ import { useEventListener, useResizeObserver } from '@vueuse/core'
 import { Scene, WebGLRenderer } from 'three'
 import { createCamera } from './entities'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { type Ref, onMounted } from 'vue'
+import { type Ref, onMounted, toRaw } from 'vue'
 
-export function initPerspective (canvas: HTMLCanvasElement, scene: Scene) {
+export interface PerspectiveProps {
+  scene: THREE.Scene
+  antialias?: boolean
+  precision?: 'highp' | 'mediump' | 'lowp'
+  powerPreference?: 'high-performance' | 'low-power' | 'default'
+}
+
+export function initPerspective (canvas: HTMLCanvasElement, props: PerspectiveProps) {
+
+  console.log('initPerspective:', toRaw(props))
+  const { scene, ...renderProps } = props
 
   // CAMERA
   const width = canvas.clientWidth

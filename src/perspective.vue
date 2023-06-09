@@ -5,12 +5,22 @@
 </template>
 
 <script setup lang="ts">
-import { Scene } from 'three'
-import { initPerspective } from './perspective'
 import { onMounted, ref } from 'vue'
-import { useEventListener, useResizeObserver } from '@vueuse/core';
+import { useEventListener, useResizeObserver } from '@vueuse/core'
+import { initPerspective } from './perspective'
 
-const props = defineProps<{ scene: Scene }>()
+interface PerspectiveProps {
+  scene: THREE.Scene
+  antialias?: boolean
+  precision?: 'highp' | 'mediump' | 'lowp'
+  powerPreference?: 'high-performance' | 'low-power' | 'default'
+}
+
+const props = withDefaults(defineProps<PerspectiveProps>(), {
+  precision: 'highp',
+  antialias: true,
+  powerPreference: 'default'
+})
 const container = ref<HTMLDivElement>()
 const canvas = ref<HTMLCanvasElement>()
 
@@ -18,7 +28,7 @@ onMounted(() => {
     if (!container.value) throw new Error('Missing HTMLDivElement!')
     if (!canvas.value) throw new Error('Missing HTMLCanvasElement!')
 
-    const { orbit, render, camera, renderer } = initPerspective(canvas.value, props.scene)
+    const { orbit, render, camera, renderer } = initPerspective(canvas.value, props)
 
     useEventListener(orbit, 'change', render)
 
@@ -26,11 +36,9 @@ onMounted(() => {
       if (!canvas.value) throw new Error('Missing HTMLCanvasElement!')
       const entry = entries[0]
       const { width, height } = entry.contentRect
-      // canvas.value.width = width
-      // canvas.value.height = height - 6
       camera.aspect = width / height
       camera.updateProjectionMatrix()
-      renderer.setSize(width, height)
+      renderer.setSize(width, height - 0)
       render()
     })
 
