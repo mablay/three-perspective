@@ -17,18 +17,18 @@
     "preview": "vite preview"
   },
   "peerDependencies": {
-    "three": "^0.153.0",
-    "vue": "^3.3.2"
+    "three": "0"
   },
   "devDependencies": {
+    "vue": "3",
     "@babel/types": "^7.22.5",
     "@tsconfig/node18": "^2.0.1",
     "@types/node": "^18.16.8",
-    "@types/three": "^0.152.1",
-    "@vitejs/plugin-vue": "^4.2.3",
+    "@types/three": "^0.164.0",
     "@vue/tsconfig": "^0.4.0",
-    "typescript": "~5.0.4",
-    "vite": "^4.3.5",
-    "vite-plugin-dts": "^2.3.0"
+    "typescript": "^5.4.5",
+    "vite-plugin-dts": "^3.9.0",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "vite": "^5.2.10"
   }
 }
