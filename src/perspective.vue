@@ -6,13 +6,14 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, provide, defineProps } from 'vue'
 import { initPerspective } from './perspective'
+import type { Scene } from 'three'
 
 const container = ref<HTMLDivElement>()
 
 interface PerspectiveProps {
-  scene: THREE.Scene
+  scene: Scene
   antialias?: boolean
   precision?: 'highp' | 'mediump' | 'lowp'
   powerPreference?: 'high-performance' | 'low-power' | 'default'
@@ -23,6 +24,8 @@ const props = withDefaults(defineProps<PerspectiveProps>(), {
   antialias: true,
   powerPreference: 'default'
 })
+
+provide('scene', props.scene)
 
 const { orbit, render, camera, renderer } = initPerspective(props)
 defineExpose({ orbit, render, camera, renderer })
