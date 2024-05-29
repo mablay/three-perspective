@@ -1,9 +1,9 @@
-import { WebGLRenderer } from 'three'
+import { Scene, WebGLRenderer } from 'three'
 import { createCamera } from './entities'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 export interface PerspectiveProps {
-  scene: THREE.Scene
+  scene: Scene
   antialias?: boolean
   /** default: 'highp' */
   precision?: 'highp' | 'mediump' | 'lowp'
