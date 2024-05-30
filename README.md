@@ -1,14 +1,42 @@
 # Three Perspective
 
-[threejs](https://threejs.org/) convenience component for Vue3.
+![](./hero.jpg)
+
+Use [ThreeJS](https://threejs.org) in [Vue3](https://vuejs.org) with minimal boilerplate.
 
 ## Features
 
 * auto-resize canvas
 * orbital controls
 * optional css import for fullscreen view
-* oneliner creat helper for most common ThreeJS objects
+* one-liner create helper functions
 * easily create multiple perspectives to the same scene
+
+## Setup
+
+### As Vue3 Plugin
+
+```ts
+// main.ts
+import { createApp } from 'vue'
+import App from './App.vue'
+import { ThreePerspectivePlugin } from 'three-perspective'
+const app = createApp(App)
+app.use(ThreePerspectivePlugin)
+app.mount('#app')
+```
+
+### As Nuxt3 Plugin
+
+```ts
+// plugins/three-perspective.ts
+import { ThreePerspective } from 'three-perspective'
+import 'three-perspective/style.css'
+
+export default defineNuxtPlugin(nuxtApp => {
+  nuxtApp.vueApp.use(ThreePerspectivePlugin)
+})
+```
 
 ## Vue Example
 
@@ -39,28 +67,4 @@ onMounted(async () => {
 })
 
 </script>
-```
-
-## Vue3 Plugin
-
-```ts
-// main.ts
-import { createApp } from 'vue'
-import App from './App.vue'
-import { ThreePerspectivePlugin } from 'three-perspective'
-const app = createApp(App)
-app.use(ThreePerspectivePlugin)
-app.mount('#app')
-```
-
-## Nuxt3 Plugin
-
-```ts
-// plugins/three-perspective.ts
-import { ThreePerspective } from 'three-perspective'
-import 'three-perspective/style.css'
-
-export default defineNuxtPlugin(nuxtApp => {
-  nuxtApp.vueApp.use(ThreePerspectivePlugin)
-})
 ```
