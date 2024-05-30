@@ -1,6 +1,6 @@
 # Three Perspective
 
-![](https://github.com/mablay/three-perspective/raw/master/hero.jpg)
+![](https://github.com/mablay/three-perspective/blob/5a4a5b4d0506fd4f32aa9d3877bbaf7f2fe27b95/hero.jpg)
 
 Use [ThreeJS](https://threejs.org) in [Vue3](https://vuejs.org) with minimal boilerplate.
 
