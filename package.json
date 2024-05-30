@@ -1,34 +1,36 @@
 {
   "name": "three-perspective",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.1",
   "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/three-perspective.umd.js",
+  "module": "./dist/three-perspective.es.js",
+  "types": "./dist/index.d.ts",
   "exports": {
-    ".": "./dist/index.js",
-    "./fullscreen.css": "./dist/fullscreen.css"
+    ".": {
+      "import": "./dist/three-perspective.es.js",
+      "require": "./dist/three-perspective.umd.js"
+    },
+    "./dist/fullscreen.css": "./dist/fullscreen.css"
   },
   "scripts": {
-    "build": "npm run clean && vite build && npm run copy",
-    "clean": "rm -r ./dist/* || true",
     "dev": "vite",
-    "copy": "cp src/fullscreen.css dist/fullscreen.css",
+    "build": "vue-tsc && vite build",
     "preview": "vite preview"
   },
-  "peerDependencies": {
-    "three": "0"
+  "dependencies": {
+    "three": "^0.164.1",
+    "vue": "^3.4.21"
   },
   "devDependencies": {
-    "vue": "3",
-    "@babel/types": "^7.22.5",
-    "@tsconfig/node18": "^2.0.1",
-    "@types/node": "^18.16.8",
-    "@types/three": "^0.164.0",
-    "@vue/tsconfig": "^0.4.0",
-    "typescript": "^5.4.5",
-    "vite-plugin-dts": "^3.9.0",
+    "@types/node": "^20.12.12",
+    "@types/three": "^0.164.1",
     "@vitejs/plugin-vue": "^5.0.4",
-    "vite": "^5.2.10"
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0",
+    "vite-plugin-dts": "^3.9.1",
+    "vue-tsc": "^2.0.6"
   }
 }

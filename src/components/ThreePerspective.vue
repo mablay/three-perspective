@@ -7,7 +7,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, provide, defineProps } from 'vue'
-import { initPerspective } from './perspective'
+import { initPerspective } from '../perspective'
 import type { Scene } from 'three'
 
 const container = ref<HTMLDivElement>()
@@ -31,7 +31,7 @@ const { orbit, render, camera, renderer } = initPerspective(props)
 defineExpose({ orbit, render, camera, renderer })
 
 let resizeObserver: ResizeObserver
-function resize (entries: ResizeObserverEntry[], observer: ResizeObserver) {
+function resize (entries: ResizeObserverEntry[], _observer: ResizeObserver) {
   const entry = entries[0]
   const { width, height } = entry.contentRect
   camera.aspect = width / height
@@ -59,7 +59,7 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
-.container {
+.three-perspective-container {
   width: 100%;
   height: 100%;
   overflow: hidden;

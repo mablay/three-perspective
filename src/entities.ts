@@ -1,5 +1,4 @@
 import * as THREE from 'three'
-import { KTXLoader } from 'three/examples/jsm/loaders/KTXLoader.js'
 
 export type R2 = [x: number, y: number]
 export type R3 = [x: number, y: number, z: number]
@@ -55,14 +54,3 @@ export function createImage (url: string, pos:R3 = [0, 0, 0], dim:R2 = [1, 1]) {
   mesh.position.set(...pos)
   return mesh
 }
-
-// export async function createKtxImage (url: string, cb?: (texture: THREE.CompressedTexture) => void) {
-//   const loader = new KTXLoader()
-//   // loader.setTranscoderPath('examples/jsm/libs/basis/')
-//   // loader.detectSupport(renderer)
-//   const map = await loader.load(url, cb ?? (() => {}))
-//   const geometry = new THREE.PlaneGeometry(1, 1)
-//   const material = new THREE.MeshBasicMaterial({ map, side: THREE.DoubleSide })
-//   return new THREE.Mesh(geometry, material)
-
-// }
