@@ -30,7 +30,7 @@ app.mount('#app')
 
 ```ts
 // plugins/three-perspective.ts
-import { ThreePerspective } from 'three-perspective'
+import { ThreePerspectivePlugin } from 'three-perspective'
 import 'three-perspective/style.css'
 
 export default defineNuxtPlugin(nuxtApp => {

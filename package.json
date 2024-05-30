@@ -1,6 +1,6 @@
 {
   "name": "three-perspective",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "type": "module",
   "files": [
     "dist"
@@ -13,7 +13,7 @@
       "import": "./dist/three-perspective.es.js",
       "require": "./dist/three-perspective.umd.js"
     },
-    "./dist/fullscreen.css": "./dist/fullscreen.css"
+    "./style.css": "./dist/style.css"
   },
   "scripts": {
     "dev": "vite",
