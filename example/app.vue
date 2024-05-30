@@ -1,29 +1,38 @@
 <!-- TEST FILE, NOT CONTAINED IN THE LIBRARY -->
 <template>
-  <Perspective ref="perspective" :scene="scene" />
+  <div class="background">
+    <ThreePerspective
+      ref="perspective"
+      :scene="scene"
+      :antialias="true"
+      :alpha="true"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
-import { entities, type ThreePerspective } from '../dist'
-import * as THREE from 'three'
-import { onMounted, ref } from 'vue'
+import { entities, type ThreePerspective } from '../dist/three-perspective.es'
+import '../dist/style.css'
 import '../dist/fullscreen.css'
+import { onMounted, ref, toRaw } from 'vue'
 
 const perspective = ref<ThreePerspective>()
-const scene = new THREE.Scene()
-
-const light = new THREE.HemisphereLight('skyblue', 'brown')
-const box = entities.createBox([0, 0, 0], [1, 1, 0.2], [1, 0, 0])
-scene.add(box, light)
+const scene = entities.exampleScene()
 
 onMounted(async () => {
   if (!perspective.value) throw new Error('Missing perspective!')
   const { render } = perspective.value
-  render()
+  console.log('perspective:', toRaw(perspective.value))
+  // render()
   /* here, you have access to the renderer if needed. */
 })
 
 </script>
 
 <style scoped>
+.background {
+  background: linear-gradient(180deg, #1CB5E0 0%, #000851 100%);
+  width: 100vw;
+  height: 100vh;
+}
 </style>

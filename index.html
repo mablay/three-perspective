@@ -10,8 +10,8 @@
     <div id="app"></div>
     <script type="module">
       import { createApp } from 'vue'
-      import App from './App.vue'
-      import { ThreePerspectivePlugin } from '../src/index'
+      import App from './example/App.vue'
+      import { ThreePerspectivePlugin } from './dist/three-perspective.es.js'
       const app = createApp(App)
       app.use(ThreePerspectivePlugin)
       app.mount('#app')

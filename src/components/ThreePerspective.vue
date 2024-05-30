@@ -7,22 +7,15 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, provide, defineProps } from 'vue'
-import { initPerspective } from '../perspective'
-import type { Scene } from 'three'
+import { type PerspectiveProps, initPerspective } from '../perspective'
 
 const container = ref<HTMLDivElement>()
-
-interface PerspectiveProps {
-  scene: Scene
-  antialias?: boolean
-  precision?: 'highp' | 'mediump' | 'lowp'
-  powerPreference?: 'high-performance' | 'low-power' | 'default'
-}
 
 const props = withDefaults(defineProps<PerspectiveProps>(), {
   precision: 'highp',
   antialias: true,
-  powerPreference: 'default'
+  powerPreference: 'default',
+  alpha: false,
 })
 
 provide('scene', props.scene)

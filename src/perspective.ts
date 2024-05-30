@@ -5,10 +5,12 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 export interface PerspectiveProps {
   scene: Scene
   antialias?: boolean
-  /** default: 'highp' */
+  /** shader precision. Can be "highp", "mediump" or "lowp". default: 'highp' */
   precision?: 'highp' | 'mediump' | 'lowp'
   /** default: 'default' */
   powerPreference?: 'high-performance' | 'low-power' | 'default'
+  /** canvas background transparency */
+  alpha?: boolean
 }
 
 export function initPerspective (props: PerspectiveProps) {
@@ -23,6 +25,7 @@ export function initPerspective (props: PerspectiveProps) {
   camera.position.set(-3, 2, -4)
 
   // RENDERER
+  console.log('Init WebGLRenderer:', renderProps)
   const renderer = new WebGLRenderer(renderProps)
   renderer.setSize(width, height)
   const render = () => renderer.render(scene, camera)
