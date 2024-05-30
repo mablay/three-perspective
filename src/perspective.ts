@@ -25,7 +25,6 @@ export function initPerspective (props: PerspectiveProps) {
   camera.position.set(-3, 2, -4)
 
   // RENDERER
-  console.log('Init WebGLRenderer:', renderProps)
   const renderer = new WebGLRenderer(renderProps)
   renderer.setSize(width, height)
   const render = () => renderer.render(scene, camera)

@@ -6,19 +6,17 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, provide, defineProps } from 'vue'
+import { onMounted, onUnmounted, ref, defineProps, withDefaults } from 'vue'
 import { type PerspectiveProps, initPerspective } from '../perspective'
 
 const container = ref<HTMLDivElement>()
 
 const props = withDefaults(defineProps<PerspectiveProps>(), {
+  powerPreference: 'default',
   precision: 'highp',
   antialias: true,
-  powerPreference: 'default',
   alpha: false,
 })
-
-provide('scene', props.scene)
 
 const { orbit, render, camera, renderer } = initPerspective(props)
 defineExpose({ orbit, render, camera, renderer })

@@ -17,7 +17,9 @@ export function createCamera (aspect: number) {
 }
 
 export function createHemisphereLight (skyColor: THREE.ColorRepresentation = '#FFF', groundColor: THREE.ColorRepresentation = '#342') {
-  return new THREE.HemisphereLight(skyColor, groundColor, 1)
+  const light = new THREE.HemisphereLight(skyColor, groundColor, 1)
+  light.position.set(3, 5, 4)
+  return light
 }
 
 export function createPlane (pos:R3 = [0, 0, 0], dim:R2 = [10, 10], rot:R3 = [Math.PI/2, 0, 0], color:THREE.ColorRepresentation = '#BBB') {
@@ -33,7 +35,7 @@ export function createBox (
   pos:R3 = [0, 0, 0],
   dim:R3 = [1, 1, 1],
   rot:R3 = [0, 0, 0],
-  color: THREE.ColorRepresentation = '#BFF'
+  color: THREE.ColorRepresentation = '#BDF'
 ) {
   const geometry = new THREE.BoxGeometry(...dim)
   const material = new THREE.MeshStandardMaterial({ color })

@@ -5,8 +5,9 @@
 ## Features
 
 * auto-resize canvas
+* orbital controls
 * optional css import for fullscreen view
-* small repository of ThreeJS helper functions
+* oneliner creat helper for most common ThreeJS objects
 * easily create multiple perspectives to the same scene
 
 ## Vue Example
@@ -15,16 +16,16 @@
 <template>
   <!-- fills its parent element.
   If the parent element has height: 0 it won't be visible. -->
-  <Perspective ref="perspective" :scene="scene" />
+  <ThreePerspective ref="perspective" :scene="scene" />
 </template>
 
 <script setup lang="ts">
 import * as THREE from 'three'
 import { onMounted, ref } from 'vue'
-import { Perspective, entities } from 'three-perspective'
+import { ThreePerspective, entities } from 'three-perspective'
 import 'three-perspective/fullscreen.css'
 
-const perspective = ref<InstanceType<typeof Perspective>>()
+const perspective = ref<InstanceType<typeof ThreePerspective>>()
 const scene = new THREE.Scene()
 
 const light = new THREE.HemisphereLight('skyblue', 'brown')
@@ -40,13 +41,26 @@ onMounted(async () => {
 </script>
 ```
 
-## Nuxt Plugin
+## Vue3 Plugin
 
 ```ts
-import { Perspective } from 'three-perspective'
-import 'three-perspective/fullscreen.css'
+// main.ts
+import { createApp } from 'vue'
+import App from './App.vue'
+import { ThreePerspectivePlugin } from 'three-perspective'
+const app = createApp(App)
+app.use(ThreePerspectivePlugin)
+app.mount('#app')
+```
+
+## Nuxt3 Plugin
+
+```ts
+// plugins/three-perspective.ts
+import { ThreePerspective } from 'three-perspective'
+import 'three-perspective/style.css'
 
 export default defineNuxtPlugin(nuxtApp => {
-  nuxtApp.vueApp.component('Perspective', Perspective)
+  nuxtApp.vueApp.use(ThreePerspectivePlugin)
 })
 ```

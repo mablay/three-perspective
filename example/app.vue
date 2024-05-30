@@ -21,10 +21,7 @@ const scene = entities.exampleScene()
 
 onMounted(async () => {
   if (!perspective.value) throw new Error('Missing perspective!')
-  const { render } = perspective.value
-  console.log('perspective:', toRaw(perspective.value))
-  // render()
-  /* here, you have access to the renderer if needed. */
+  console.log('perspective:', {...toRaw(perspective.value)})
 })
 
 </script>
