@@ -21,6 +21,8 @@ Use [ThreeJS](https://threejs.org) in [Vue3](https://vuejs.org) with minimal boi
 import { createApp } from 'vue'
 import App from './App.vue'
 import { ThreePerspectivePlugin } from 'three-perspective'
+import 'three-perspective/style.css'
+
 const app = createApp(App)
 app.use(ThreePerspectivePlugin)
 app.mount('#app')
@@ -51,7 +53,7 @@ export default defineNuxtPlugin(nuxtApp => {
 import * as THREE from 'three'
 import { onMounted, ref } from 'vue'
 import { ThreePerspective, entities } from 'three-perspective'
-import 'three-perspective/fullscreen.css'
+import 'three-perspective/fullscreen.css' // optional
 
 const perspective = ref<InstanceType<typeof ThreePerspective>>()
 const scene = new THREE.Scene()
